@@ -18,7 +18,7 @@ var LongPollClient = {
             LongPollClient.shutdown = false;
             var username = $('#messageUsername').val();
             var password = $('#messagePassword').val();
-            var messageUrl = "http://" + LongPollClient.HOST + "/long-poll-server/Login?username=" + username + "&password=" + password + "&" + (Math.random());
+            var messageUrl = "http://" + LongPollClient.HOST + "/long-poll/Login?username=" + username + "&password=" + password + "&" + (Math.random());
             $.ajax({
                 url: messageUrl,
                 success: function (data, textStatus, jqXHR) {
@@ -95,7 +95,7 @@ var LongPollClient = {
                 var messageId = LongPollClient.messageIdForAck.pop();
                 LongPollClient.lastConnectionTime = ((new Date()).getTime());
                 console.log("will send an acknowledgement message for this message id: " + messageId + " array size: " + LongPollClient.messageIdForAck.length);
-                var messageUrl = "http://" + LongPollClient.HOST + "/long-poll-server/AckMessage?sessionId=" + LongPollClient.sessionId + "&messageId=" + messageId + "&" + (Math.random());
+                var messageUrl = "http://" + LongPollClient.HOST + "/long-poll/AckMessage?sessionId=" + LongPollClient.sessionId + "&messageId=" + messageId + "&" + (Math.random());
                 $.ajax({
                     url: messageUrl,
                     success: function (data, textStatus, jqXHR) {
@@ -121,7 +121,7 @@ var LongPollClient = {
                 var messageId = LongPollClient.messageIdForGotId.pop();
                 LongPollClient.lastConnectionTime = ((new Date()).getTime());
                 console.log("will send an got it message for this message id: " + messageId + " array size: " + LongPollClient.messageIdForGotId.length);
-                var messageUrl = "http://" + LongPollClient.HOST + "/long-poll-server/ReceivedAckMessage?sessionId=" + LongPollClient.sessionId + "&messageId=" + messageId + "&" + (Math.random());
+                var messageUrl = "http://" + LongPollClient.HOST + "/long-poll/ReceivedAckMessage?sessionId=" + LongPollClient.sessionId + "&messageId=" + messageId + "&" + (Math.random());
                 $.ajax({
                     url: messageUrl,
                     success: function (data, textStatus, jqXHR) {
@@ -148,8 +148,8 @@ var LongPollClient = {
         doLongPoll: function () {
             var doLongPollFunction = function () {
                 if (LongPollClient.shutdown === true) {
-                    console.log("someone else logged in, connection closed");
-                    alert("someone else logged in, connection closed");
+                    console.log("connection closed, either someone else logged in with this user or the server got error");
+                    alert("connection closed, either someone else logged in with this user or the server got error");
                     $("#messageConnect").attr("disabled", false);
                     $("#LongPollSend").find("input").attr("disabled", true);
                 } else {
@@ -159,7 +159,7 @@ var LongPollClient = {
                 }
             };
             $.ajax({
-                    url: "http://" + LongPollClient.HOST + "/long-poll-server/GetMessage?sessionId=" + LongPollClient.sessionId + "&" + (Math.random()),
+                    url: "http://" + LongPollClient.HOST + "/long-poll/GetMessage?sessionId=" + LongPollClient.sessionId + "&" + (Math.random()),
                     success: function (data, textStatus, jqXHR) {
                         LongPollClient.lastConnectionTime = ((new Date()).getTime());
                         if (data["shutdown"] === "true") {
@@ -224,7 +224,7 @@ var LongPollClient = {
                 LongPollClient.addLine(true, {"content": messageContent, "messageId": messageId, "date": messageDate, "from": LongPollClient.sessionId});
                 $('#LongPollContainer').scrollTop($('#LongPollContainer')[0].scrollHeight);
                 messageContent = Base64.encode(messageContent);
-                var messageUrl = "http://" + LongPollClient.HOST + "/long-poll-server/SendMessage?sessionId=" + LongPollClient.sessionId + "&to=" + toUser + "&content=" + messageContent + "&messageId=" + messageId + "&" + (Math.random());
+                var messageUrl = "http://" + LongPollClient.HOST + "/long-poll/SendMessage?sessionId=" + LongPollClient.sessionId + "&to=" + toUser + "&content=" + messageContent + "&messageId=" + messageId + "&" + (Math.random());
                 $.ajax({
                     url: messageUrl,
                     success: function (data, textStatus, jqXHR) {
