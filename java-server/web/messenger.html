@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Long Poll</title>
+
+    <style type="text/css">
+        #LongPollRequestResult {
+            visibility: hidden;
+        }
+    </style>
+
+
+    <script type="text/javascript" charset="utf-8" src="./js/jquery-1.7.2.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+
+        var doLongPoll = function () {
+            $.ajax({ url:"http://localhost:8080/long-poll-server/GetMessage?cookie=ACM123&" + (Math.random()),
+                success:function (data, textStatus, jqXHR) {
+                    var messagesArray = data;
+                    if (messagesArray.length > 0) {
+                        for (var i = 0; i < messagesArray.length; i++) {
+                            var message = messagesArray[i];
+                            $("#LongPollMessages").append("<br/>" + message["from"] + ": " + message["message"]);
+                        }
+                    } else {
+                        $("#LongPollRequestResult").append("<br/>success: jqXHR: " + jqXHR + ", textStatus: " + textStatus + ", data:" + data + " JSON: " + JSON().stringify(data));
+                    }
+                    doLongPoll();
+                },
+                error:function (jqXHR, textStatus, errorThrown) {
+                    $("#LongPollRequestResult").append("<br/>error: jqXHR: " + jqXHR + ", textStatus: " + textStatus + ", errorThrown:" + errorThrown);
+                    // wait for 5 secs and retry
+                },
+                dataType:"json"
+            })
+        };
+
+        $(document).ready(function () {
+            doLongPoll();
+        });
+    </script>
+</head>
+<body>
+<div id="LongPollRequestResult">result:</div>
+<div id="LongPollMessages">messages:</div>
+<div id="LongPollContainer">
+    content...
+</div>
+</body>
+</html>

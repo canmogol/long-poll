@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+		  http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         version="2.5">
+
+    <servlet>
+        <servlet-name>GetMessageServlet</servlet-name>
+        <servlet-class>com.longpoll.server.GetMessageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetMessageServlet</servlet-name>
+        <url-pattern>/GetMessage</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SendMessageServlet</servlet-name>
+        <servlet-class>com.longpoll.server.SendMessageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SendMessageServlet</servlet-name>
+        <url-pattern>/SendMessage</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>com.longpoll.server.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AckMessageServlet</servlet-name>
+        <servlet-class>com.longpoll.server.AckMessageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AckMessageServlet</servlet-name>
+        <url-pattern>/AckMessage</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ReceivedAckServlet</servlet-name>
+        <servlet-class>com.longpoll.server.ReceivedAckServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReceivedAckServlet</servlet-name>
+        <url-pattern>/ReceivedAckMessage</url-pattern>
+    </servlet-mapping>
+
+</web-app>

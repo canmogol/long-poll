@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Long Poll</title>
+
+    <link rel="stylesheet" type="text/css" href="./css/long-poll-client.0.0.1.css" media="all">
+
+    <script type="text/javascript" charset="utf-8" src="./js/jquery-1.7.2.js"></script>
+    <script type="text/javascript" charset="utf-8" src="./js/base64.0.0.1.js"></script>
+    <script type="text/javascript" charset="utf-8" src="./js/long-poll-client.0.0.1.js"></script>
+
+</head>
+<body>
+
+<div id="messageContainer">
+    <label for="messageUsername" class="messageLabel">username: </label>
+    <input type="text" id="messageUsername" class="inputBox inputRoundedCorners" value="user1"/>
+    <label for="messagePassword" class="messageLabel">password: </label>
+    <input type="text" id="messagePassword" class="inputBox inputRoundedCorners" value="111"/>
+    <input type="button" id="messageConnect" class="submitBox inputRoundedCorners" value="Connect"/>
+    <label for="messageToUser" class="messageLabel">friend: </label>
+    <input type="text" id="messageToUser" class="inputBox inputRoundedCorners" value="user2"/>
+
+    <div id="LongPollContainer" class="messageRoundedCorners"></div>
+    <div id="LongPollSend">
+        <input type="text" id="messageText" class="messageRoundedCorners messageBigText" disabled="true"/>
+        <input type="button" value=">" id="messageButton"/>
+    </div>
+    <div id="messageLog"></div>
+</div>
+
+</body>
+</html>

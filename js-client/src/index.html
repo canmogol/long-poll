@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Long Poll</title>
+    <script type="text/javascript" charset="utf-8" src="./js/jquery-1.7.2.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            /*
+             setInterval(function () {
+
+             }, 30000);
+             */
+            $.ajax({ url:"http://localhost:8080/long-poll-server/?" + (Math.random()),
+                success:function (data, textStatus, jqXHR) {
+                    $("#LongPollRequestResult").append("<br/>success: jqXHR: " + jqXHR + ", textStatus: " + textStatus + ", data:" + data);
+                },
+                error:function (jqXHR, textStatus, errorThrown) {
+                    $("#LongPollRequestResult").append("<br/>error: jqXHR: " + jqXHR + ", textStatus: " + textStatus + ", errorThrown:" + errorThrown);
+                },
+                dataType:"json"
+            }).done(
+                    function () {
+                        $("#LongPollRequestResult").append("<br/>done");
+                    }
+            );
+        });
+    </script>
+</head>
+<body>
+<div id="LongPollRequestResult">result:</div>
+<div id="LongPollContainer">
+    content...
+</div>
+</body>
+</html>
